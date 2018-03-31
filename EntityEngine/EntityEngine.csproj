@@ -42,8 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassTypes\ComponentType.cs" />
+    <Compile Include="ClassTypes\ComponentTypeMap.cs" />
+    <Compile Include="ClassTypes\SystemType.cs" />
+    <Compile Include="ClassTypes\SystemTypeMap.cs" />
+    <Compile Include="Component.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="EntitySystem.cs" />
+    <Compile Include="Filter.cs" />
+    <Compile Include="Managers\EntityManager.cs" />
+    <Compile Include="Managers\SystemManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

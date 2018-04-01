@@ -46,7 +46,7 @@
     <Compile Include="ClassTypes\ComponentTypeMap.cs" />
     <Compile Include="ClassTypes\SystemType.cs" />
     <Compile Include="ClassTypes\SystemTypeMap.cs" />
-    <Compile Include="Component.cs" />
+    <Compile Include="IComponent.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntitySystem.cs" />
     <Compile Include="Filter.cs" />

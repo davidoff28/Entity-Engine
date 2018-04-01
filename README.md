@@ -13,9 +13,9 @@ World world = new World();
 '''
 ## Entity
 An entity is what your game objects within your game are; Tanks, Orcs, Swords, even GUI elements like Buttons, etc.
-
 Entity's are created by using the World.
-'''
+
+'''C#
 Entity player = world.CreateEntity();
 ''' 
 
@@ -23,8 +23,7 @@ Entity player = world.CreateEntity();
 Components are PODs ("Plain Old Data"). The data within the components is what defines an Entity.
 Example of a Component:
 
-'''
-// Create a component by inheriting the IComponent interface
+'''C#
 public class Position : IComponent
 {
 	// Define your data.
@@ -35,7 +34,7 @@ public class Position : IComponent
 
 Components can be attached/removed/retrieved from Entities like so:
 
-'''
+'''C#
 player.AddComponent<Position>();
 player.GetComponent<Position>();
 player.RemoveComponent<Position>();
@@ -49,25 +48,30 @@ A system, called EntitySystem within the framework, is where the processing of e
 The systems therefore are the behaviours of the entities.
 Systems can filter only entities that have the required components to be used within the system during the update.
 
-'''
+'''C#
 public class PositionSystem : EntitySystem
 {
+
 	public PositionSystem() : base(Filter.Accept(typeof(Position)))
 	{
+		
 	}
 	
-	public override void Update()
+}
+'''
+
+'''C#
+public override void Update()
+{
+	foreach(var entity in this.Entities)
 	{
-		foreach(var entity in this.Entities)
-		{
-			Position pos = entity.GetComponent<Position>();
-			// Your behaviour code
-		}
+		Position pos = entity.GetComponent<Position>();
+		// Your behaviour code
 	}
 }
 '''
 
-#Todo
+# Todo
 There is many tasks still to do:
 - [ ] Unit Test
 - [ ] Speed Test

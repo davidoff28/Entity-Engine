@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntityEngine
 {
-    public class Component
+    public interface IComponent
     {
     }
 }

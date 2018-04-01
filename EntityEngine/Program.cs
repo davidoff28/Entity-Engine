@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace EntityEngine
 {
-    class ComponentA : Component { public int num; }
-    class ComponentB : Component { public int num; }
+    class ComponentA : IComponent { public int num; }
+    class ComponentB : IComponent { public int num; }
 
     class SystemA : EntitySystem
     {

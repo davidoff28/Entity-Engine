@@ -37,17 +37,17 @@ namespace EntityEngine
             _entityManager.Destroy(this);
         }
 
-        public T AddComponent<T>() where T : Component
+        public T AddComponent<T>() where T : IComponent
         {
             return (T)_entityManager.AddComponent(this, typeof(T));
         }
 
-        public T GetComponent<T>() where T : Component
+        public T GetComponent<T>() where T : IComponent
         {
             return (T)_entityManager.GetComponent(this, typeof(T));
         }
 
-        public void RemoveComponent<T>() where T : Component
+        public void RemoveComponent<T>() where T : IComponent
         {
             _entityManager.RemoveComponent(this, typeof(T));
         }

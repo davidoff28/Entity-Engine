@@ -15,7 +15,7 @@ namespace EntityEngine.Managers
         private Dictionary<int, Entity> _entities;
         private List<Entity> _destroyedEntities;
 
-        private Dictionary<int, List<Component>> _componentsByType;
+        private Dictionary<int, List<IComponent>> _componentsByType;
 
         public EntityManager(World world)
         {
@@ -27,7 +27,7 @@ namespace EntityEngine.Managers
             _entities = new Dictionary<int, Entity>();
             _destroyedEntities = new List<Entity>();
 
-            _componentsByType = new Dictionary<int, List<Component>>();
+            _componentsByType = new Dictionary<int, List<IComponent>>();
         }
 
         public Entity Create()
@@ -92,16 +92,16 @@ namespace EntityEngine.Managers
             return (_entities.ContainsKey(entity.Id)) ? _entities[entity.Id] : null;
         }
 
-        public Component AddComponent(Entity entity, Type type)
+        public IComponent AddComponent(Entity entity, Type type)
         {
-            var component = (Component)Activator.CreateInstance(type);
+            var component = (IComponent)Activator.CreateInstance(type);
             var componentType = ComponentTypeMap.GetComponentType(type);
-            List<Component> components = null;
+            List<IComponent> components = null;
 
             // check to see if it is a new type of component.
             if (!_componentsByType.ContainsKey(componentType.Id))
             {
-                components = new List<Component>();
+                components = new List<IComponent>();
                 _componentsByType.Add(componentType.Id, components);
             }
             else
@@ -126,24 +126,24 @@ namespace EntityEngine.Managers
             return component;
         }
 
-        public Component GetComponent(Entity entity, Type type)
+        public IComponent GetComponent(Entity entity, Type type)
         {
             var componentType = ComponentTypeMap.GetComponentType(type);
-            List<Component> components = _componentsByType[componentType.Id];
+            List<IComponent> components = _componentsByType[componentType.Id];
 
             return (entity.Id <= components.Count) ? components[entity.Id] : null;
         }
 
-        public List<Component> GetComponents(Entity entity)
+        public List<IComponent> GetComponents(Entity entity)
         {
-            List<Component> result = new List<Component>();
+            List<IComponent> result = new List<IComponent>();
 
             for (int i = 0; i < _componentsByType.Count; i++)
             {
-                List<Component> temp = _componentsByType[i];
+                List<IComponent> temp = _componentsByType[i];
                 if (entity.Id <= temp.Count)
                 {
-                    Component component = temp[entity.Id];
+                    IComponent component = temp[entity.Id];
                     if (component != null)
                     {
                         result.Add(component);
@@ -159,7 +159,7 @@ namespace EntityEngine.Managers
             var componentType = ComponentTypeMap.GetComponentType(type);
             entity.ComponentBitMask &= ~componentType.Bit;
 
-            List<Component> components = _componentsByType[componentType.Id];
+            List<IComponent> components = _componentsByType[componentType.Id];
             components[entity.Id] = null;
 
             _world.NotifyChanges(entity);
@@ -170,7 +170,7 @@ namespace EntityEngine.Managers
             entity.ComponentBitMask = 0;
             for (int i = _componentsByType.Count - 1; i >= 0; i--)
             {
-                List<Component> components = _componentsByType[i];
+                List<IComponent> components = _componentsByType[i];
                 if (entity.Id <= components.Count)
                 {
                     components[entity.Id] = null;

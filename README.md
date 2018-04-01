@@ -9,38 +9,30 @@ An Entity Component System (ECS) is an architectural design pattern that allows 
 The world class is the core of the engine. The world class is where the creation/destruction of entities and Adding/Removing Systems.
 An Entity is simply a wrapper around an integer. The integer is used for identifying an Entity within the framework.
 
-'''csharp
-World world = new World();
-'''
+	World world = new World();
 
 ## Entity
 An entity is what your game objects within your game are; Tanks, Orcs, Swords, even GUI elements like Buttons, etc.
 Entity's are created by using the World.
 
-'''csharp
-Entity player = world.CreateEntity();
-''' 
+	Entity player = world.CreateEntity();
 
 ### Component
 Components are PODs ("Plain Old Data"). The data within the components is what defines an Entity.
 Example of a Component:
 
-'''csharp
-public class Position : IComponent
-{
-	// Define your data.
-	public float X;
-	public float Y;
-}
-'''
+	public class Position : IComponent
+	{
+		// Define your data.
+		public float X;
+		public float Y;
+	}
 
 Components can be attached/removed/retrieved from Entities like so:
 
-'''csharp
-player.AddComponent<Position>();
-player.GetComponent<Position>();
-player.RemoveComponent<Position>();
-'''
+	player.AddComponent<Position>();
+	player.GetComponent<Position>();
+	player.RemoveComponent<Position>();
 
 Currently there is a maximum limit of 32 components that can be created. 
 Entities are also limited to only one of each component type, e.g. one Position component is allowed but a Position component and a Rotation component is.
@@ -50,23 +42,22 @@ A system, called EntitySystem within the framework, is where the processing of e
 The systems therefore are the behaviours of the entities.
 Systems can filter only entities that have the required components to be used within the system during the update.
 
-'''csharp
-public PositionSystem() : base(Filter.Accept(typeof(Position)))
-{
-
-}
-'''
-
-'''csharp
-public override void Update()
-{
-	foreach(var entity in this.Entities)
+	public class PositionSystem : EntitySystem
 	{
-		Position pos = entity.GetComponent<Position>();
-		// Your behaviour code
+		public PositionSystem() : base(Filter.Accept(typeof(Position)))
+		{
+
+		}
+		
+		public override void Update()
+		{
+			foreach(var entity in this.Entities)
+			{
+				Position pos = entity.GetComponent<Position>();
+				// Your behaviour code
+			}
+		}
 	}
-}
-'''
 
 # Todo
 There is many tasks still to do:

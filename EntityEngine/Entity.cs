@@ -1,31 +1,28 @@
 ﻿using System;
 
-using EntityEngine.Managers;
-
 namespace EntityEngine
 {
     /// <summary>
     /// Base struct that represents a game object.
     /// </summary>
-    public struct Entity : IEquatable<Entity>
-    {
-        private int _id;
-
+    public class Entity : IEquatable<Entity>
+    {        
         /// <summary>
         /// The identifier of this <see cref="Entity"/>.
         /// </summary>
         public int Id
         {
-            get => _id;
+            get;
+            internal set;
         }
 
         /// <summary>
         /// Initializes a new <see cref="Entity"/> with an Id.
         /// </summary>
         /// <param name="id">The id.</param>
-        public Entity(int id)
+        internal Entity(int id)
         {
-            _id = id;
+            Id = id;            
         }
 
         /// <summary>
@@ -57,7 +54,7 @@ namespace EntityEngine
         /// <returns>True if both instances are equal, otherwise false.</returns>
         public bool Equals(Entity other)
         {
-            return _id == other.Id;
+            return Id == other.Id;
         }
 
         /// <summary>
@@ -66,7 +63,7 @@ namespace EntityEngine
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return _id;
+            return Id;
         }
 
         /// <summary>
@@ -85,62 +82,7 @@ namespace EntityEngine
         /// <returns></returns>
         public override string ToString()
         {
-            return "Entity: " + _id;
+            return "Entity: " + Id;
         }        
     }
-
-
-    //public class Entity
-    //{
-    //    private EntityManager _entityManager;
-
-    //    internal int ComponentBitMask
-    //    {
-    //        get;
-    //        set;
-    //    }
-
-    //    internal int SystemBitMask
-    //    {
-    //        get;
-    //        set;
-    //    }
-
-    //    public int Id
-    //    {
-    //        get;
-    //        private set;
-    //    }
-
-    //    public Entity(EntityManager entityManager, int id)
-    //    {
-    //        Id = id;
-    //        _entityManager = entityManager;
-    //    }
-
-    //    public void Destroy()
-    //    {
-    //        _entityManager.Destroy(this);
-    //    }
-
-    //    public T AddComponent<T>() where T : IComponent
-    //    {
-    //        return (T)_entityManager.AddComponent(this, typeof(T));
-    //    }
-
-    //    public T GetComponent<T>() where T : IComponent
-    //    {
-    //        return (T)_entityManager.GetComponent(this, typeof(T));
-    //    }
-
-    //    public void RemoveComponent<T>() where T : IComponent
-    //    {
-    //        _entityManager.RemoveComponent(this, typeof(T));
-    //    }
-
-    //    public void Reset()
-    //    {
-    //        ComponentBitMask = SystemBitMask = 0;
-    //    }
-    //}
 }

@@ -84,6 +84,17 @@ namespace EntityEngine
         }
 
         /// <summary>
+        /// Checks to see if a given <see cref="Entity"/> contains a type of <see cref="IComponent"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of <see cref="IComponent"/> to find.</typeparam>
+        /// <param name="entity">The <see cref="Entity"/> to check.</param>
+        /// <returns>True if the given <see cref="Entity"/> contains the type of <see cref="IComponent"/>, otherwise false.</returns>
+        public bool ContainsComponent<T>(Entity entity) where T : IComponent
+        {
+            return ContainsComponent(entity, typeof(T));
+        }
+
+        /// <summary>
         /// Adds a new <see cref="IComponent"/> to a given <see cref="Entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="Entity"/> to assign the <see cref="IComponent"/> to.</param>
@@ -139,7 +150,20 @@ namespace EntityEngine
 
             return components[entity.Id];
         }
-       
+
+        /// <summary>
+        /// Gets a list of <see cref="IComponent"/> the given type.
+        /// </summary>        
+        /// <param name="componentType">The type of <see cref="IComponent"/>.</param>
+        /// <returns>A list of <see cref="IComponent"/> if exists, otherwise null.</returns>
+        private List<IComponent> GetComponentsOfType(Type componentType)
+        {
+            ComponentType type = ComponentTypeMap.GetComponentType(componentType);
+            if (type.Id >= _componentsByType.Count) return null;
+
+            return (type.Id < _componentsByType.Count) ? _componentsByType[type.Id] : null;
+        }
+
         /// <summary>
         /// Removes a <see cref="IComponent"/> from a given <see cref="Entity"/>.
         /// </summary>        
@@ -157,18 +181,16 @@ namespace EntityEngine
             components.RemoveAt(entity.Id);
             return true;
         }
-
+       
         /// <summary>
-        /// Gets a list of <see cref="IComponent"/> the given type.
+        /// Checks to see if a given <see cref="Entity"/> contains a type of <see cref="IComponent"/>.
         /// </summary>        
-        /// <param name="componentType">The type of <see cref="IComponent"/>.</param>
-        /// <returns>A list of <see cref="IComponent"/> if exists, otherwise null.</returns>
-        private List<IComponent> GetComponentsOfType(Type componentType)
+        /// <param name="componentType">The type of <see cref="IComponent"</param>
+        /// <param name="entity">The <see cref="Entity"/> to check.</param>
+        /// <returns>True if the given <see cref="Entity"/> contains the type of <see cref="IComponent"/>, otherwise false.</returns>
+        private bool ContainsComponent(Entity entity, Type componentType)
         {
-            ComponentType type = ComponentTypeMap.GetComponentType(componentType);
-            if (type.Id >= _componentsByType.Count) return null;
-
-            return (type.Id < _componentsByType.Count) ? _componentsByType[type.Id] : null;
+            return (GetComponent(entity, componentType) != null) ? true : false;                        
         }
     }
 }

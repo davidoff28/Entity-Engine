@@ -7,6 +7,8 @@ namespace EntityEngine
     /// </summary>
     public class Entity : IEquatable<Entity>
     {        
+        
+
         /// <summary>
         /// The identifier of this <see cref="Entity"/>.
         /// </summary>

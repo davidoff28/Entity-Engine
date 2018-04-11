@@ -57,6 +57,7 @@ namespace EntityEngine
         /// <param name="entity">The <see cref="Entity"/> to remove.</param>
         public void DestroyEntity(Entity entity)
         {
+            _componentManager.RemoveAllComponents(entity);
             _entityManager.DestroyEntity(entity);
         }
 

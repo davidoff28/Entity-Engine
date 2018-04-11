@@ -42,14 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentArray.cs" />
+    <Compile Include="ComponentManager.cs" />
+    <Compile Include="ComponentType.cs" />
+    <Compile Include="ComponentTypeMap.cs" />
+    <Compile Include="Core.cs" />
+    <Compile Include="EntitySystem.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
-    <Compile Include="ISystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

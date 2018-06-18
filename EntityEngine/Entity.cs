@@ -3,12 +3,10 @@
 namespace EntityEngine
 {
     /// <summary>
-    /// Base struct that represents a game object.
+    /// Base class that represents an object.
     /// </summary>
-    public class Entity : IEquatable<Entity>
-    {        
-        
-
+    public sealed class Entity : IEquatable<Entity>
+    {
         /// <summary>
         /// The identifier of this <see cref="Entity"/>.
         /// </summary>
@@ -24,7 +22,7 @@ namespace EntityEngine
         /// <param name="id">The id.</param>
         internal Entity(int id)
         {
-            Id = id;            
+            Id = id;
         }
 
         /// <summary>
@@ -62,7 +60,7 @@ namespace EntityEngine
         /// <summary>
         /// Gets the hashcode of this <see cref="Entity"/> instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The hashcode.</returns>
         public override int GetHashCode()
         {
             return Id;
@@ -85,6 +83,6 @@ namespace EntityEngine
         public override string ToString()
         {
             return "Entity: " + Id;
-        }        
+        }
     }
 }
